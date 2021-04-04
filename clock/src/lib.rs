@@ -8,11 +8,14 @@ pub struct Clock {
 
 impl Clock {
     pub fn new(hours: i32, minutes: i32) -> Self {
+        let carry_hours = minutes.div_euclid(60);
+        let minutes = minutes.rem_euclid(60);
+        let hours = (hours + carry_hours).rem_euclid(24);
         Clock { hours, minutes }
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
-        unimplemented!("Add {} minutes to existing Clock time", minutes);
+        Clock::new(self.hours, self.minutes + minutes)
     }
 }
 
